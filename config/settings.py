@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party
+    'crispy_forms',
 
     # local
     'accounts.apps.AccountsConfig',
@@ -135,3 +136,5 @@ STATICFILES_FINDERS = [
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
