@@ -174,3 +174,7 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+
+# email config
+DEFAULT_FROM_EMAIL = 'admin@bookshelf.com'

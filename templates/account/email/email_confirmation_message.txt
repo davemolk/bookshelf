@@ -1,0 +1,4 @@
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}Your Bookshelf Sign Up is Nearly Complete!{% endblocktrans %}
+{% endautoescape %}
