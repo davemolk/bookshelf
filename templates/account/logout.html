@@ -10,5 +10,6 @@
         {% csrf_token %}
         {{ form|crispy }}
         <button class="btn btn-danger" type="submit">Log Out</button>
+        <button class="btn btn-warning"><a href="{% url 'home' %}">Back</a></button>
     </form>
 {% endblock content %}
