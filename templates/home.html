@@ -9,5 +9,6 @@
 <p>Welcome {{ user.username }}</p>
 {% else %}
 <p>Log in with <a href="{% provider_login_url 'github' %}">Github</a></p>
+<p>Log in with <a href="{% provider_login_url 'google' %}">Google</a></p>
 {% endif %}
 {% endblock content %}
