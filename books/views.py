@@ -27,6 +27,7 @@ class BookCreateView(LoginRequiredMixin, CreateView):
     model = Book
     fields = [
         'title',
+        'author',
         'notes',
     ]
 
@@ -38,6 +39,7 @@ class BookUpdateView(LoginRequiredMixin, UpdateView):
     model = Book
     fields = [
         'title',
+        'author',
         'notes',
     ]
     action = 'Update'
