@@ -12,6 +12,8 @@ class Book(models.Model):
         unique=True, always_update=False, populate_from="title")
     author = models.CharField(max_length=255, blank=True)
     notes = models.TextField("Description", blank=True)
+    cover = models.ImageField(upload_to='covers/', blank=True)
+    url = models.URLField("URL", blank=True)
     owner = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
