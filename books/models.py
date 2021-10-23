@@ -12,8 +12,8 @@ class Book(models.Model):
         unique=True, always_update=False, populate_from="title")
     author = models.CharField(max_length=255, blank=True)
     notes = models.TextField("Description", blank=True)
-    cover = models.ImageField(upload_to='covers/', blank=True)
-    url = models.URLField("URL", blank=True)
+    cover_upload = models.ImageField(upload_to='covers/', blank=True, default='covers/default.jpg')
+    cover_url = models.URLField("URL", blank=True)
     owner = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
@@ -24,3 +24,11 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         return reverse('book_detail', kwargs={"slug": self.slug})
+
+    @property
+    def imageURL(self):
+        try: 
+            url = self.cover.url
+        except:
+            url = ''
+        return url
