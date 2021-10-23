@@ -30,7 +30,16 @@ class BookCreateView(LoginRequiredMixin, CreateView):
         'title',
         'author',
         'notes',
+        'cover_upload',
+        'cover_url',
     ]
+    labels = {
+        'title': 'Book Title',
+        'author': 'Author',
+        'notes': 'My Notes',
+        'cover_upload': 'Cover Image',
+        'cover_url': 'Cover URL',
+    }
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -42,7 +51,16 @@ class BookUpdateView(LoginRequiredMixin, UpdateView):
         'title',
         'author',
         'notes',
+        'cover_upload',
+        'cover_url',
     ]
+    labels = {
+        'title': 'Book Title',
+        'author': 'Author',
+        'notes': 'My Notes',
+        'cover_upload': 'Cover Image',
+        'cover_url': 'Cover URL',
+    }
     action = 'Update'
 
 class BookDeleteView(LoginRequiredMixin, DeleteView):

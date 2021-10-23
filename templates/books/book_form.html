@@ -9,7 +9,7 @@
 {% with action=view.action|default:"Add" %}
     <h1>{{ action }} Book</h1>
 
-    <form method="post" action=".">
+    <form method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-primary">
