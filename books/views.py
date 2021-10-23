@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView, 
     DetailView, 
@@ -46,4 +47,4 @@ class BookUpdateView(LoginRequiredMixin, UpdateView):
 
 class BookDeleteView(LoginRequiredMixin, DeleteView):
     model = Book
-    success_url = '/'
+    success_url = reverse_lazy('book_list')
