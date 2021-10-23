@@ -10,9 +10,9 @@ from .views import (
 
 
 urlpatterns = [
-    path('', BookListView.as_view(), name='list'),
-    path('add/', BookCreateView.as_view(), name='add'),
-    path('<slug:slug>/delete/', BookDeleteView.as_view(), name='delete'),
-    path('<slug:slug>/update/', BookUpdateView.as_view(), name='update'),
-    path('<slug:slug>/', BookDetailView.as_view(), name='detail'),
+    path('', BookListView.as_view(), name='book_list'),
+    path('add/', BookCreateView.as_view(), name='book_add'),
+    path('<slug:slug>/delete/', BookDeleteView.as_view(), name='book_delete'),
+    path('<slug:slug>/update/', BookUpdateView.as_view(), name='book_update'),
+    path('<slug:slug>/', BookDetailView.as_view(), name='book_detail'),
 ]
