@@ -143,6 +143,12 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+# media config
+MEDIA_URL = '/media/' 
+MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
+
+
+
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
