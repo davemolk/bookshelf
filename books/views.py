@@ -11,14 +11,14 @@ from .models import Book
 
 class BookListView(ListView):
     model = Book
-    template_name = 'books/book_list'
+    template_name = 'books/book_list.html'
 
-    # def get_queryset(self):
-    #     return Book.objects.filter(owner=self.request.user)
+    def get_queryset(self):
+        return Book.objects.filter(owner=self.request.user)
 
 class BookDetailView(LoginRequiredMixin, DetailView):
     model = Book
-    template_name = 'books/book_detail'
+    template_name = 'books/book_detail.html'
 
     def get_queryset(self):
         return Book.objects.filter(owner=self.request.user)

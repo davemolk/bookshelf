@@ -3,11 +3,11 @@
 {% block title %}{{ object.title }}{% endblock title %}
 
 {% block content %}
-<div class="book-detail">
-    {% if book.cover %}
-        <img src="{{ book.cover_upload.url }}" alt="{{ book.title }}">
+<div class="container">
+    {% if book.cover_url %}
+        <img class="bookcover" src="{{ book.cover_url }}" alt="{{ book.title }}">
     {% else %}
-        <img src="{{ book.cover_url }}" alt="{{ book.title }}">
+        <img class="bookcover" src="{{ book.cover_upload.url }}" alt="{{ book.title }}">
     {% endif %}
     <h2>{{ book.title }}</h2> 
     {% if book.author %}
@@ -16,6 +16,17 @@
     {% if book.notes %}
         <p>Notes: {{ book.notes|linebreaksbr }}</p> 
     {% endif %}
+    
+    <p>
+        <a class="btn btn-primary"
+        href="{% url 'book_update' book.slug %}"
+        role="button">
+            Update
+        </a>
+    </p>
 
 </div>
+
+
+
 {% endblock content %}
