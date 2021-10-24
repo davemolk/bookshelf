@@ -14,7 +14,7 @@ from .models import Record
 def record_list_view(request):
     qs = Record.objects.filter(owner=request.user)
     context = {
-        'object_list': qs,
+        'record_list': qs,
     }
     return render(request, 'records/list.html', context)
 
@@ -23,7 +23,7 @@ def record_list_view(request):
 def record_detail_view(request, slug):
     obj = get_object_or_404(Record, slug=slug, owner=request.user)
     context = {
-        'object': obj,
+        'record': obj,
     }
     return render(request, 'records/detail.html', context)
 
@@ -48,7 +48,7 @@ def record_update_view(request, slug):
     form = RecordForm(request.POST or None, instance=obj)
     context = {
         'form': form,
-        'object': obj,
+        'record': obj,
     }
     if form.is_valid():
         form.save()

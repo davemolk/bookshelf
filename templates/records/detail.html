@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ record.title }}{% endblock title %}
+
+{% block content %}
+<div class="container">
+    {% if record.record_url %}
+        <img class="bookcover" src="{{ record.record_url }}" alt="{{ record.title }}">
+    {% endif %}
+    <h2>{{ record.title }}<small><a href="{% url 'records:update' record.slug %}">Edit</a></small></h2> 
+    
+    {% if record.notes %}
+        <p>Notes: {{ record.notes|linebreaksbr }}</p> 
+    {% endif %}
+    
+
+    {% comment %} <p>
+        <a class="btn btn-danger"
+        href="{% url 'book_confirm_delete' book.slug %}"
+        role="button">
+            Delete
+        </a>
+    </p> {% endcomment %}
+
+</div>
+
+
+
+{% endblock content %}

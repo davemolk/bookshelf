@@ -3,7 +3,7 @@
 {% block title %}My Bookshelf{% endblock title %}
 
 {% block content %}
-    {% for record in object_list %}
+    {% for record in record_list %}
 
     <div>
         <h2><a href="{{ record.get_absolute_url }}">{{ record.title }}</a></h2>
@@ -11,7 +11,7 @@
     {% endfor %}
 
     <hr/>
-    <p>Don't see a record listed here?</p>
+    <p>Don't see your favorite record listed here?</p>
     <p>
         <a class="btn btn-primary"
             href="{% url 'records:create' %}" role='button'>
