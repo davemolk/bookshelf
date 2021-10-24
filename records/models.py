@@ -21,6 +21,10 @@ class Record(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('record_detail', kwargs={'slug': self.slug})
+        return reverse('records:detail', kwargs={'slug': self.slug})
 
+    def get_edit_url(self):
+        return reverse('records:edit', kwargs={'slug': self.slug})
 
+    def get_delete_url(self):
+        return reverse('records:delete', kwargs={'slug': self.sl})

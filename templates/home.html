@@ -4,7 +4,10 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %} 
-<h1>Homepage</h1>
+<h1>Bookshelf</h1>
+<h5>or...</h5>
+<h3>Kitchen Sink Coding</h3>
+
 {% if user.is_authenticated %}
 <p>Welcome {{ user.username }}</p>
 {% else %}
