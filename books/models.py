@@ -11,7 +11,7 @@ class Book(models.Model):
     slug = AutoSlugField("Book Slug",
         unique=True, always_update=False, populate_from="title")
     author = models.CharField(max_length=255, blank=True)
-    notes = models.TextField("Description", blank=True)
+    notes = models.TextField("Notes", blank=True)
     cover_upload = models.ImageField(upload_to='covers/', blank=True, default='covers/default.jpg')
     cover_url = models.URLField("URL", blank=True)
     owner = models.ForeignKey(
@@ -28,7 +28,7 @@ class Book(models.Model):
     @property
     def imageURL(self):
         try: 
-            url = self.cover.url
+            url = self.cover_upload.url
         except:
             url = ''
         return url
