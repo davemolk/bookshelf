@@ -67,3 +67,11 @@ def record_delete_view(request, slug):
         'record': record
     }
     return render(request, 'records/delete.html', context)
+
+
+def create_record_form_hx(request):
+    form = RecordForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'records/partials/record_form.html', context)
