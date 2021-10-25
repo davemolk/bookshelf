@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http.response import HttpResponse
 from django.urls import reverse
 from django.shortcuts import (
     render, 
@@ -29,16 +30,33 @@ def record_detail_view(request, slug):
 
 
 @login_required
+def record_detail_view_hx(request, slug):
+    record = get_object_or_404(Record, slug=slug, owner=request.user)
+    context = {
+        'record': record,
+    }
+    return render(request, 'records/partials/detail_hx.html', context)
+
+
+
+@login_required
 def record_create_view(request):
     form = RecordForm(request.POST or None)
     context = {
         'form': form,
     }
-    if form.is_valid():
-        obj = form.save(commit=False)
-        obj.owner = request.user
-        obj.save()
-        return redirect(obj.get_absolute_url())
+    if request.method == 'POST':
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.owner = request.user
+            obj.save()
+            # return redirect(obj.get_absolute_url())
+            # context['message'] = 'Data saved.'
+            # return HttpResponse('Data saved\n')
+            return redirect('records:detail_hx', slug=obj.slug)
+
+        else:
+            return render(request, 'records/partials/record.html', context)
     return render(request, 'records/create_update.html', context)
 
 
@@ -53,6 +71,8 @@ def record_update_view(request, slug):
     if form.is_valid():
         form.save()
         context['message'] = 'Save successful!'
+    # if request.htmx:
+    #     return render(request, 'records/partials/record_form.html', context)
     return render(request, 'records/create_update.html', context)
 
 
