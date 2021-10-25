@@ -7,20 +7,25 @@
     {% if record.record_url %}
         <img class="bookcover" src="{{ record.record_url }}" alt="{{ record.title }}">
     {% endif %}
-    <h2>{{ record.title }}<small><a href="{% url 'records:update' record.slug %}">Edit</a></small></h2> 
+    <h2>{{ record.title }}</h2> 
     
     {% if record.notes %}
         <p>Notes: {{ record.notes|linebreaksbr }}</p> 
     {% endif %}
     
 
-    <p>
+    <div>
+        <a class="btn btn-warning"
+        href="{% url 'records:update' record.slug %}"
+        role="button">
+            Update
+        </a>
         <a class="btn btn-danger"
         href="{% url 'records:delete' record.slug %}"
         role="button">
             Delete
         </a>
-    </p> 
+    </div> 
 
 </div>
 

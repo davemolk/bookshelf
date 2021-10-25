@@ -58,7 +58,7 @@ def record_update_view(request, slug):
 
 @login_required
 def record_delete_view(request, slug):
-    record = Record.objects.get(slug=slug, owner=request.user)
+    record = get_object_or_404(Record, slug=slug, owner=request.user)
     if request.method == 'POST':
         record.delete()
         success_url = reverse('records:list')

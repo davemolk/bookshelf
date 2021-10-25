@@ -17,20 +17,18 @@
         <p>Notes: {{ book.notes|linebreaksbr }}</p> 
     {% endif %}
     
-    <p>
-        <a class="btn btn-primary"
+    <div>
+        <a class="btn btn-warning"
         href="{% url 'book_update' book.slug %}"
         role="button">
             Update
         </a>
-    </p>
-    <p>
         <a class="btn btn-danger"
         href="{% url 'book_confirm_delete' book.slug %}"
         role="button">
             Delete
         </a>
-    </p>
+    </div>
 
 </div>
 
