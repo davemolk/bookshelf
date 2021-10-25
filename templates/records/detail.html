@@ -14,13 +14,13 @@
     {% endif %}
     
 
-    {% comment %} <p>
+    <p>
         <a class="btn btn-danger"
-        href="{% url 'book_confirm_delete' book.slug %}"
+        href="{% url 'records:delete' record.slug %}"
         role="button">
             Delete
         </a>
-    </p> {% endcomment %}
+    </p> 
 
 </div>
 

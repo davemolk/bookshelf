@@ -12,18 +12,18 @@ from .models import Record
 
 @login_required
 def record_list_view(request):
-    qs = Record.objects.filter(owner=request.user)
+    record_list = Record.objects.filter(owner=request.user)
     context = {
-        'record_list': qs,
+        'record_list': record_list,
     }
     return render(request, 'records/list.html', context)
 
 
 @login_required
 def record_detail_view(request, slug):
-    obj = get_object_or_404(Record, slug=slug, owner=request.user)
+    record = get_object_or_404(Record, slug=slug, owner=request.user)
     context = {
-        'record': obj,
+        'record': record,
     }
     return render(request, 'records/detail.html', context)
 
@@ -44,13 +44,26 @@ def record_create_view(request):
 
 @login_required
 def record_update_view(request, slug):
-    obj = get_object_or_404(Record, slug=slug, owner=request.user) 
-    form = RecordForm(request.POST or None, instance=obj)
+    record = get_object_or_404(Record, slug=slug, owner=request.user) 
+    form = RecordForm(request.POST or None, instance=record)
     context = {
         'form': form,
-        'record': obj,
+        'record': record,
     }
     if form.is_valid():
         form.save()
         context['message'] = 'Save successful!'
     return render(request, 'records/create_update.html', context)
+
+
+@login_required
+def record_delete_view(request, slug):
+    record = Record.objects.get(slug=slug, owner=request.user)
+    if request.method == 'POST':
+        record.delete()
+        success_url = reverse('records:list')
+        return redirect(success_url)
+    context = {
+        'record': record
+    }
+    return render(request, 'records/delete.html', context)
