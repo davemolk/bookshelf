@@ -22,7 +22,13 @@
         Add a record
     </button>
 
-    <div id='recordforms'></div>
+    <div id='recordforms'>
+    
+    {% for record in records %}
+    {% include 'records/partials/detail_hx.html' %}
+    {% endfor %}
+    
+    </div>
 
     {% comment %}
     {% comment %}

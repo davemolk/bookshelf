@@ -32,19 +32,21 @@ def record_detail_view(request, slug):
 @login_required
 def record_create_view(request):
     form = RecordForm(request.POST or None)
+    records = Record.objects.filter(owner=request.user)
     context = {
         'form': form,
+        'records': records,
     }
-    if request.method == 'POST':
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.owner = request.user
-            obj.save()
-            # return redirect(obj.get_absolute_url())
-            # return HttpResponse('Data saved\n')
-            return redirect('records:detail_hx', slug=obj.slug)
+    # if request.method == 'POST':
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.owner = request.user
+        obj.save()
+        # return redirect(obj.get_absolute_url())
+        # return HttpResponse('Data saved\n')
+        return redirect('records:detail_hx', slug=obj.slug)
 
-        else:
+    if request.htmx:
             return render(request, 'records/partials/record_form.html', context)
     return render(request, 'records/create_update.html', context)
 
@@ -59,7 +61,7 @@ def record_update_view(request, slug):
     }
     if form.is_valid():
         form.save()
-        context['message'] = 'Save successful!'
+        # context['message'] = 'Save successful!'
     # if request.htmx:
     #     return render(request, 'records/partials/record_form.html', context)
     return render(request, 'records/create_update.html', context)
@@ -111,8 +113,8 @@ def update_hx(request, slug):
     if form.is_valid():
         form.save()
         return redirect('records:detail_hx', slug=record.slug)
-    if request.htmx:
-        return render(request, 'records/partials/record_form.html', context)
+    # if request.htmx:
+    #     return render(request, 'records/partials/record_form.html', context)
     return render(request, 'records/partials/record_form.html', context)
 
 

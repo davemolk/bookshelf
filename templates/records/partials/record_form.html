@@ -1,5 +1,31 @@
 <div hx-target="this" hx-swap='outerHTML'>
-<h2>HTMX FORM</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% comment %} <button type="submit" class="btn btn-primary" hx-post='.'>Submit</button> {% endcomment %}
+        
+        {% if record %}
+        <button type="submit" hx-post="{% url 'records:update_hx' record.slug %}" class="btn btn-primary">
+            Submit
+        </button>
+        <button hx-get="{% url 'records:detail_hx' record.slug %}">
+            Cancel
+        </button>
+        {% else %}
+        <button class="btn btn-primary" hx-post=".">
+            Submit
+        </button>
+        {% endif %}
+    </form> 
+
+</div>
+
+
+
+
+{% comment %} <div hx-target="this" hx-swap='outerHTML'>
+
     <form method="post" action=".">
         {% csrf_token %}
         {{ form.as_p }}
@@ -15,4 +41,4 @@
         {% endif %}
     </form> 
 
-</div>
+</div> {% endcomment %}
