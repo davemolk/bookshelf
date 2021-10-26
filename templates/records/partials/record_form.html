@@ -1,10 +1,7 @@
-{% load crispy_forms_tags %}
-
 <div hx-target="this" hx-swap='outerHTML'>
 <h2>HTMX FORM</h2>
     <form method="post" action=".">
         {% csrf_token %}
-        {% comment %} {{ form|crispy }} {% endcomment %}
         {{ form.as_p }}
         {% if record %}
         <button type="submit" hx-post="{% url 'records:update_hx' record.slug %}" class="btn btn-primary">

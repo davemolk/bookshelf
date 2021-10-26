@@ -78,6 +78,7 @@ def record_delete_view(request, slug):
     return render(request, 'records/delete.html', context)
 
 
+@login_required
 def create_hx(request):
     form = RecordForm()
     context = {
@@ -103,10 +104,21 @@ def update_hx(request, slug):
         'form': form,
         'record': record,
     }
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('records:detail_hx', slug=record.slug)
-    # if request.htmx:
-    #     return render(request, 'records/partials/record_form.html', context)
+    # if request.method == 'POST':
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('records:detail_hx', slug=record.slug)
+    if form.is_valid():
+        form.save()
+        return redirect('records:detail_hx', slug=record.slug)
+    if request.htmx:
+        return render(request, 'records/partials/record_form.html', context)
     return render(request, 'records/partials/record_form.html', context)
+
+
+@login_required
+def delete_hx(request, slug):
+    record = get_object_or_404(Record, slug=slug, owner=request.user)
+    if request.method == 'POST':
+        record.delete()
+        return HttpResponse('')

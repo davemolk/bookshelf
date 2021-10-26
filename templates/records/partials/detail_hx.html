@@ -3,5 +3,6 @@
         <h5>Title: {{record.title}}</h5>
         <p>Notes: {{record.notes}}</p>
         <button class="btn btn-warning" hx-get="{% url 'records:update_hx' record.slug %}">Update</button>
+        <button class="btn btn-danger" hx-post="{% url 'records:delete_hx' record.slug %}">Delete</button>
     </div>
 </div>
