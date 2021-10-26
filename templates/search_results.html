@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock title %}
+
+{% block content %} 
+<h1>Search Results</h1>
+{% if object %}
+    {% for object in object_list %}
+        <div>
+            {% if object.record_url %}
+                <a target="_blank" href="{{object.record_url}}">
+                    <img src="{{object.record_url}}" class="img-thumbnail thumbs">
+                </a>
+            {% endif %}
+            <h3><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h3> 
+            {% if object.author %}
+            <p>Author: {{ object.author }}</p>
+            {% endif %}
+            {% if object.musicians %}
+            <p>Musicians: {{ object.musicians }}</p>
+            {% endif %}
+            {% if object.notes %}
+            <p>Notes: {{ object.notes }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% else %}
+<h3>No results found</h3>
+{% endif %}
+
+{% endblock content %}

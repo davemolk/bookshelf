@@ -4,15 +4,27 @@
 
 {% block content %} 
 <h1>Search Results</h1>
-{% for book in book_list %}
-    <div>
-        <h3><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h3> 
-        {% if book.author %}
-        <p>Author: {{ book.author }}</p>
-        {% endif %}
-        {% if book.notes %}
-        <p>Notes: {{ book.notes }}</p>
-        {% endif %}
-    </div>
-{% endfor %}
+{% if book_list %}
+    {% for book in book_list %}
+        <div>
+            {% if book.cover_url %}
+            <a target="_blank" href="{{book.cover_url}}">
+                <img src="{{book.cover_url}}" class="img-thumbnail thumbs">
+            </a>
+            {% else %}
+            <img class="img-thumbnail thumbs" src="{{ book.cover_upload.url }}" alt="{{ book.title }}">
+            {% endif %}
+            <h3><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h3> 
+            {% if book.author %}
+            <p>Author: {{ book.author }}</p>
+            {% endif %}
+            {% if book.notes %}
+            <p>Notes: {{ book.notes }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% else %}
+<h3>No results found</h3>
+{% endif %}
+
 {% endblock content %}

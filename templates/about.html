@@ -16,7 +16,25 @@ with a number of technologies within and alongside Django.
 </li>
 <li>Search functionality via Q
 </li>
-<li>lots of other stuff to list...
+<li>Docker
+</li>
+<li>Postgresql
+</li>
+<li>Allauth
+</li>
+<li>and lots of other cool stuff...
 </li>
 </ul>
+
+<h4>Search</h4>
+    <form class="form-inline mt-2 mt-md-0" action="{% url 'all_search_results' %}"
+    method="get">
+        <input name="q" class="form-control mr-sm-2" type="text" 
+        placeholder="search by title, by author, and within your notes"
+        aria-label="search by title, by author, and within your notes">
+        <div>
+            <input class="btn btn-secondary mt-2" type="submit" value="Search" />
+        </div>
+    </form>
+
 {% endblock content %}
