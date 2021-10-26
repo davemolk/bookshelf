@@ -10,6 +10,7 @@ class Record(models.Model):
     title = models.CharField("Record Title", max_length=255)
     slug = AutoSlugField("Record Slug",
         unique=True, always_update=False, populate_from='title')
+    musicians = models.TextField("Musicians", blank=True)
     notes = models.TextField("Notes", blank=True)
     record_url = models.URLField("URL", blank=True)
     owner = models.ForeignKey(

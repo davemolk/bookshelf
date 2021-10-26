@@ -1,7 +1,19 @@
 <div hx-target="this" hx-swap="outerHTML">
     <div>
+        <div>
+        {% if record.record_url %}
+        <a target="_blank" href="{{record.record_url}}">
+            <img src="{{record.record_url}}" class="img-thumbnail thumbs">
+        </a>
+        {% endif %}
         <h5>Title: {{record.title}}</h5>
-        <p>Notes: {{record.notes}}</p>
+        </div>
+        {% if record.musicians %}
+            <p>Musicians: {{ record.musicians|linebreaksbr }}</p>
+        {% endif %}
+        {% if record.notes %}
+            <p>My Notes: {{record.notes}}</p>
+        {% endif %}
         <button class="btn btn-warning" hx-get="{% url 'records:update_hx' record.slug %}">Update</button>
         <button class="btn btn-danger" hx-post="{% url 'records:delete_hx' record.slug %}">Quick Delete</button>
     </div>

@@ -6,8 +6,9 @@
     <h4>Search</h4>
     <form class="form-inline mt-2 mt-md-0" action="{% url 'search_results' %}"
     method="get">
-        <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search"
-        aria-label="Search">
+        <input name="q" class="form-control mr-sm-2" type="text" 
+        placeholder="search by title, by author, and within your notes"
+        aria-label="search by title, by author, and within your notes">
     </form>
 
     {% for book in book_list %}

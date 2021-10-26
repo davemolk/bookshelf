@@ -10,11 +10,13 @@ class RecordForm(forms.ModelForm):
         model = Record
         fields = [
             'title',
+            'musicians',
             'notes',
             'record_url',
         ]
         labels = {
         'title': 'Record Title',
+        'musicians': 'Musicians',
         'notes': 'My Notes',
         'record_url': 'URL for Cover',
         }

@@ -9,6 +9,10 @@
     {% endif %}
     <h2>{{ record.title }}</h2> 
     
+    {% if record.musicians %}
+        <p>Musicians: {{ record.musicians|linebreaksbr }}</p> 
+    {% endif %}
+
     {% if record.notes %}
         <p>Notes: {{ record.notes|linebreaksbr }}</p> 
     {% endif %}
