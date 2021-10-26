@@ -39,12 +39,12 @@ def record_create_view(request):
     }
     # if request.method == 'POST':
     if form.is_valid():
-        obj = form.save(commit=False)
-        obj.owner = request.user
-        obj.save()
+        record = form.save(commit=False)
+        record.owner = request.user
+        record.save()
         # return redirect(obj.get_absolute_url())
         # return HttpResponse('Data saved\n')
-        return redirect('records:detail_hx', slug=obj.slug)
+        return redirect('records:detail_hx', slug=record.slug)
 
     if request.htmx:
             return render(request, 'records/partials/record_form.html', context)
