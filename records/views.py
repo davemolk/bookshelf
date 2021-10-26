@@ -61,6 +61,7 @@ def record_update_view(request, slug):
     }
     if form.is_valid():
         form.save()
+        return redirect('records:list')
         # context['message'] = 'Save successful!'
     # if request.htmx:
     #     return render(request, 'records/partials/record_form.html', context)
@@ -72,8 +73,7 @@ def record_delete_view(request, slug):
     record = get_object_or_404(Record, slug=slug, owner=request.user)
     if request.method == 'POST':
         record.delete()
-        success_url = reverse('records:list')
-        return redirect(success_url)
+        return redirect('records:list')
     context = {
         'record': record
     }
