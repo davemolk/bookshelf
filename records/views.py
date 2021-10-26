@@ -30,16 +30,6 @@ def record_detail_view(request, slug):
 
 
 @login_required
-def record_detail_view_hx(request, slug):
-    record = get_object_or_404(Record, slug=slug, owner=request.user)
-    context = {
-        'record': record,
-    }
-    return render(request, 'records/partials/detail_hx.html', context)
-
-
-
-@login_required
 def record_create_view(request):
     form = RecordForm(request.POST or None)
     context = {
@@ -51,12 +41,11 @@ def record_create_view(request):
             obj.owner = request.user
             obj.save()
             # return redirect(obj.get_absolute_url())
-            # context['message'] = 'Data saved.'
             # return HttpResponse('Data saved\n')
             return redirect('records:detail_hx', slug=obj.slug)
 
         else:
-            return render(request, 'records/partials/record.html', context)
+            return render(request, 'records/partials/record_form.html', context)
     return render(request, 'records/create_update.html', context)
 
 
@@ -89,9 +78,35 @@ def record_delete_view(request, slug):
     return render(request, 'records/delete.html', context)
 
 
-def create_record_form_hx(request):
+def create_hx(request):
     form = RecordForm()
     context = {
         'form': form,
     }
+    return render(request, 'records/partials/record_form.html', context)
+
+
+@login_required
+def detail_hx(request, slug):
+    record = get_object_or_404(Record, slug=slug, owner=request.user)
+    context = {
+        'record': record,
+    }
+    return render(request, 'records/partials/detail_hx.html', context)
+
+
+@login_required
+def update_hx(request, slug):
+    record = get_object_or_404(Record, slug=slug, owner=request.user) 
+    form = RecordForm(request.POST or None, instance=record)
+    context = {
+        'form': form,
+        'record': record,
+    }
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('records:detail_hx', slug=record.slug)
+    # if request.htmx:
+    #     return render(request, 'records/partials/record_form.html', context)
     return render(request, 'records/partials/record_form.html', context)
