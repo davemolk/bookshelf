@@ -7,6 +7,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from django.db.models import Q
 from .models import Book
 
 
@@ -66,3 +67,15 @@ class BookUpdateView(LoginRequiredMixin, UpdateView):
 class BookDeleteView(LoginRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('book_list')
+
+
+class SearchResultsListView(ListView):
+    model = Book
+    template_name = 'books/search_results.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        return Book.objects.filter(owner=self.request.user).filter(
+            Q(title__icontains=query) | Q(author__icontains=query)
+            | Q(notes__icontains=query)
+        )

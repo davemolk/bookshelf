@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock title %}
+
+{% block content %} 
+<h1>Search Results</h1>
+{% for book in book_list %}
+    <div>
+        <h3><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h3> 
+        {% if book.author %}
+        <p>Author: {{ book.author }}</p>
+        {% endif %}
+        {% if book.notes %}
+        <p>Notes: {{ book.notes }}</p>
+        {% endif %}
+    </div>
+{% endfor %}
+{% endblock content %}
