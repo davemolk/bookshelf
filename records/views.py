@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.urls import reverse
@@ -38,10 +39,11 @@ def record_create_view(request):
         'records': records,
     }
     # if request.method == 'POST':
-    if form.is_valid():
+    if request.method == 'POST' and form.is_valid():
         record = form.save(commit=False)
         record.owner = request.user
         record.save()
+        messages.success(request, 'Creation successful!')
         # return redirect(obj.get_absolute_url())
         # return HttpResponse('Data saved\n')
         return redirect('records:detail_hx', slug=record.slug)
@@ -59,8 +61,9 @@ def record_update_view(request, slug):
         'form': form,
         'record': record,
     }
-    if form.is_valid():
+    if request.method == 'POST' and form.is_valid():
         form.save()
+        messages.success(request, 'Update successful!')
         return redirect('records:list')
         # context['message'] = 'Save successful!'
     # if request.htmx:
@@ -73,6 +76,7 @@ def record_delete_view(request, slug):
     record = get_object_or_404(Record, slug=slug, owner=request.user)
     if request.method == 'POST':
         record.delete()
+        messages.success(request, 'Delete successful!')
         return redirect('records:list')
     context = {
         'record': record
@@ -110,8 +114,9 @@ def update_hx(request, slug):
     #     if form.is_valid():
     #         form.save()
     #         return redirect('records:detail_hx', slug=record.slug)
-    if form.is_valid():
+    if request.method == 'POST' and form.is_valid():
         form.save()
+        messages.success(request, 'Update successful!')
         return redirect('records:detail_hx', slug=record.slug)
     # if request.htmx:
     #     return render(request, 'records/partials/record_form.html', context)
@@ -123,4 +128,5 @@ def delete_hx(request, slug):
     record = get_object_or_404(Record, slug=slug, owner=request.user)
     if request.method == 'POST':
         record.delete()
+        messages.success(request, 'Delete successful!')
         return HttpResponse('')
